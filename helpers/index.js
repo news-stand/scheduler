@@ -193,7 +193,6 @@ const checkSession = (req, res, next) => {
               obj.user = user[0].dataValues.name;
               obj.role = user[0].dataValues.role;
               obj.businessId = user[0].dataValues.business_id;
-
             }
             req.session = obj;
             next();
@@ -285,18 +284,31 @@ const destroySession = (req, res, next) => {
 
 const findOrCreateBusiness = (req, res, next) => {
   if (req.body.creds) {
+    console.log('------------------- This is signup: req.body.creds ', req.body.creds);
     var business = req.body.creds.business;
+
+    db.Business.findOrCreate({ where: { name: business } })
+      .then((array) => {
+        req.businessId = array[0].dataValues.id;
+        next();
+      })
+      .catch((err) => {
+        console.log('err in findOrCreate ---------> ', err);
+      });
   } else {
-    var business = req.body.business;
+    console.log('-------------------- this is create emplooye: ', req.body.business)
+    ;
+    req.businessId = req.body.business;
+    next();
   }
-  db.Business.findOrCreate({ where: { name: business } })
-    .then((array) => {
-      req.businessId = array[0].dataValues.id;
-      next();
-    })
-    .catch((err) => {
-      console.log('err in findOrCreate ---------> ', err);
-    });
+  // db.Business.findOrCreate({ where: { name: business } })
+  //   .then((array) => {
+  //     req.businessId = array[0].dataValues.id;
+  //     next();
+  //   })
+  //   .catch((err) => {
+  //     console.log('err in findOrCreate ---------> ', err);
+  //   });
 };
 
 const createUser = (req, res, next) => {

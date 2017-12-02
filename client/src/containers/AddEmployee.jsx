@@ -44,7 +44,7 @@ class AddEmployee extends React.Component {
             onClick={() => {
               this.props.addEmployee(
                 this.state.newEmployeeName, this.state.newEmployeePassword,
-                this.props.businessName,
+                this.props.businessId,
               );
               this.setState({
                 newEmployeeName: '',
@@ -61,7 +61,7 @@ class AddEmployee extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    businessName: state.businessName,
+    businessId: state.businessId,
   };
 }
 
@@ -75,7 +75,7 @@ function mapDispatchToProps(dispatch) {
 AddEmployee.propTypes = {
   addEmployee: PropTypes.func.isRequired,
   leaveAddEmployee: PropTypes.func.isRequired,
-  businessName: PropTypes.string.isRequired,
+  businessId: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddEmployee);

@@ -236,26 +236,6 @@ const authenticate = (req, res, next) => {
     });
 };
 
-const createUser = (req, res, next) => {
-  db.User.create({
-    name: req.body.creds.username,
-    role: 'manager',
-    password: passHash(req.body.creds.password),
-    // add business ID (will later need to change for req.body.creds.business)
-    business_id: 1,
-  }).then((data) => {
-    req.session = newSession(req, res);
-    req.session.user = req.body.creds.username;
-    req.session.role =data.dataValues.role;
-    db.Sessions.create({ session: req.session.session, user_id: data.dataValues.id })
-      .then(() => {
-        next();
-      });
-  }).catch((err) => {
-    res.status(201).send({ flashMessage: { message: `username "${req.body.creds.username}" already exists`, type: 'red' } });
-  });
-};
-
 const redirectIfLoggedIn = (req, res, next) => {
   if (!req.session.user) {
     res.send();
@@ -300,7 +280,7 @@ const destroySession = (req, res, next) => {
 };
 
 const findOrCreateBusiness = (req, res, next) => {
-  const { business } = req.body;
+  const { business } = req.body.creds;
   db.Business.findOrCreate({ where: { name: business } })
     .then((array) => {
       console.log('This is the result array from findOrCreate: ', array);
@@ -309,9 +289,30 @@ const findOrCreateBusiness = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      console.log('There was an error in trying to findOrCreate with Travis');
-      console.log('Travis is being difficult: ', err);
+      console.log('err in findOrCreate ---------> ', err);
     });
+};
+
+const createUser = (req, res, next) => {
+  console.log('req.businessId in createUser:', req.businessId);
+  db.User.create({
+    name: req.body.creds.username,
+    role: 'manager',
+    password: passHash(req.body.creds.password),
+    // add business ID (will later need to change for req.body.creds.business)
+    
+    business_id: req.businessId,
+  }).then((data) => {
+    req.session = newSession(req, res);
+    req.session.user = req.body.creds.username;
+    req.session.role =data.dataValues.role;
+    db.Sessions.create({ session: req.session.session, user_id: data.dataValues.id })
+      .then(() => {
+        next();
+      });
+  }).catch((err) => {
+    res.status(201).send({ flashMessage: { message: `username "${req.body.creds.username}" already exists`, type: 'red' } });
+  });
 };
 
 module.exports = {

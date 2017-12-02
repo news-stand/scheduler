@@ -66,7 +66,7 @@ app.post('/login', utils.authenticate, (req, res) => {
   res.redirect('/welcome_back');
 });
 
-app.post('/signup', /* utils.createBusiness, */ utils.createUser, (req, res) => {
+app.post('/signup', utils.findOrCreateBusiness, utils.createUser, (req, res) => {
   res.redirect('/welcome_back');
 });
 

@@ -9,6 +9,10 @@ const SignUp = props => (
     <h4>Sign Up</h4>
     <form >
         <div>
+          <label className="credentials-label">Business Name:</label>
+          <input className="credentials-input" id="business" type="text" name="business" />
+        </div>
+        <div>
           <label className="credentials-label">Username:</label>
           <input className="credentials-input" id="username" type="text" name="username" />
         </div>
@@ -21,8 +25,9 @@ const SignUp = props => (
             () => {
               const username = document.getElementById('username').value;
               const password = document.getElementById('password').value;
-              const business = /*document.getElementById('business').value || */ 'Hack Reactor';
+              const business = document.getElementById('business').value || 'Hack Reactor';
               props.signUp({ username, password, business });
+              document.getElementById('business').value = '';
               document.getElementById('username').value = '';
               document.getElementById('password').value = '';
             }

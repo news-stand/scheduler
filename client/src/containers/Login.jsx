@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeView, login } from '../actions/index';
+import { changeView, login, setBusiness } from '../actions/index';
 import PropTypes from 'prop-types';
 
 const Login = props => (
@@ -30,6 +30,7 @@ const Login = props => (
               document.getElementById('password').value = '';
             }
           }
+          // NEED TO SOMEHOW BIND COMPANY NAME ON LOGIN
         />
       </div>
     </form>
@@ -37,7 +38,7 @@ const Login = props => (
 );
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login }, dispatch);
+  return bindActionCreators({ login, setBusiness }, dispatch);
 }
 
 Login.propTypes = {

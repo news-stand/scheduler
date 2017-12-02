@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addEmployee, leaveAddEmployee } from '../actions/index';
-
 import PropTypes from 'prop-types';
+
+import { addEmployee, leaveAddEmployee } from '../actions/index';
 
 class AddEmployee extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class AddEmployee extends React.Component {
     this.state = {
       newEmployeeName: '',
       newEmployeePassword: '',
-      // TODO: will need to create input field for newEmployeeBusiness
+      // TODO: will need to delete the below because business id will come from state
       newEmployeeBusiness: 'Hack Reactor',
     };
   }
@@ -42,15 +42,19 @@ class AddEmployee extends React.Component {
         />
         <div className="btn-credentials">
           <button
-            className='btn-main clickable'
+            className="btn-main clickable"
             onClick={() => {
-              this.props.addEmployee(this.state.newEmployeeName, this.state.newEmployeePassword, this.state.newEmployeeBusiness);
-              this.setState({ newEmployeeName: '',
-               newEmployeePassword: '',
-               // TODO: reset newEmployeeBusiness input
-             });
+              this.props.addEmployee(
+                this.state.newEmployeeName, this.state.newEmployeePassword,
+              // will need to change the below to pull employee businessID from application state
+                this.state.newEmployeeBusiness,
+              );
+              this.setState({
+                newEmployeeName: '',
+                newEmployeePassword: '',
+              });
             }}
-            >Add
+          >Add
           </button>
         </div>
       </div>
@@ -67,7 +71,7 @@ function mapDispatchToProps(dispatch) {
 
 AddEmployee.propTypes = {
   addEmployee: PropTypes.func.isRequired,
-  leaveAddEmployee: PropTypes.func,
+  leaveAddEmployee: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(AddEmployee);

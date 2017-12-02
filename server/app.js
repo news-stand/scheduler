@@ -40,7 +40,7 @@ app.patch('/employee_availability', utils.updateEmployeeAvailability, (req, res)
 });
 
 app.post('/add_employee', utils.findOrCreateBusiness, utils.addUser, utils.getAllDayParts, utils.addEmployeeAvailability, utils.getAllEmployeeAvailabilities, (req, res) => {
-  res.json({ 
+  res.json({
     user: req.user,
     employeeAvailabilities: req.employeeAvailabilities,
   });
@@ -84,7 +84,7 @@ app.get('/welcome_back',
   utils.sendEmployeeInfo,
   utils.getAllNeededEmployees,
   (req, res) => {
-    let obj = {};
+    const obj = {};
     obj.role = req.session.role;
     obj.dayParts = req.dayParts;
     obj.view = 'employeeEditor';

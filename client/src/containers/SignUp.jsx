@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { signUp } from '../actions/index';
 import PropTypes from 'prop-types';
+
+import { signUp } from '../actions/index';
+
 
 const SignUp = props => (
   <div className="credentials clear-fix">
@@ -31,8 +33,8 @@ const SignUp = props => (
               document.getElementById('username').value = '';
               document.getElementById('password').value = '';
             }
-          } 
-           />
+          }
+          />
         </div>
     </form>
   </div>

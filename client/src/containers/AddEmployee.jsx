@@ -12,7 +12,7 @@ class AddEmployee extends React.Component {
       newEmployeeName: '',
       newEmployeePassword: '',
       // TODO: will need to delete the below because business id will come from state
-      newEmployeeBusiness: 'Hack Reactor',
+      //newEmployeeBusiness: 'Hack Reactor',
     };
   }
 
@@ -44,10 +44,11 @@ class AddEmployee extends React.Component {
           <button
             className="btn-main clickable"
             onClick={() => {
+              console.log('--------- appstate: ', this.props.businessName);
               this.props.addEmployee(
                 this.state.newEmployeeName, this.state.newEmployeePassword,
               // will need to change the below to pull employee businessID from application state
-                this.state.newEmployeeBusiness,
+                this.props.businessName,
               );
               this.setState({
                 newEmployeeName: '',
@@ -62,6 +63,12 @@ class AddEmployee extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    businessName: state.businessName,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addEmployee,
@@ -72,6 +79,7 @@ function mapDispatchToProps(dispatch) {
 AddEmployee.propTypes = {
   addEmployee: PropTypes.func.isRequired,
   leaveAddEmployee: PropTypes.func.isRequired,
+  businessName: PropTypes.string.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(AddEmployee);
+export default connect(mapStateToProps, mapDispatchToProps)(AddEmployee);

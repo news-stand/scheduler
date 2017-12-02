@@ -92,6 +92,7 @@ const generateSchedule = (mondayDate) => {
 };
 
 const addEmployee = (username, password, business) => {
+  console.log('----------------- we are in addEmployee');
   const response = axios.post('/add_employee', { username, password, business });
   return {
     type: 'ADD_EMPLOYEE',

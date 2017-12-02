@@ -280,12 +280,14 @@ const destroySession = (req, res, next) => {
 };
 
 const findOrCreateBusiness = (req, res, next) => {
-  const { business } = req.body.creds;
+  if (req.body.creds) {
+    var business = req.body.creds.business;
+  } else {
+    var business = req.body.business;
+  }
   db.Business.findOrCreate({ where: { name: business } })
     .then((array) => {
-      console.log('This is the result array from findOrCreate: ', array);
       req.businessId = array[0].dataValues.id;
-      console.log('this is req.businessId-------------', req.businessId);
       next();
     })
     .catch((err) => {

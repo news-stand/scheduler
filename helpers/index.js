@@ -209,6 +209,10 @@ const passHash = (password) => {
   return shasum.digest('hex');
 };
 
+const getAndSetBusinessId = (req, res, next) => {
+
+}
+
 const authenticate = (req, res, next) => {
   //get user info from user db;
   if (req.session.user) {
@@ -218,7 +222,7 @@ const authenticate = (req, res, next) => {
   db.User.findAll({ where: { name: req.body.creds.username } })
     .then((user) => {
       if (user.length === 0) {
-        res.status(201).send({ flashMessage: { message: 'incorrect username or password', type: 'red' } });
+        res.status(201).send({ flashMessage: { message: 'incorrect username', type: 'red' } });
         return;
       }
       user = user[0].dataValues;
@@ -231,7 +235,7 @@ const authenticate = (req, res, next) => {
             next();
           });
       } else {
-        res.status(201).send({ flashMessage: { message: 'incorrect username or password', type: 'red' } });
+        res.status(201).send({ flashMessage: { message: 'incorrect password', type: 'red' } });
       }
     });
 };

@@ -164,7 +164,7 @@ const changeView = (newView) => {
 };
 
 const login = (creds) => {
-  const response = axios.post('/login', { creds })
+  const response = axios.post('/login', { creds });
   return {
     type: 'GET_ALL',
     payload: response,
@@ -173,7 +173,6 @@ const login = (creds) => {
 
 const signUp = (creds) => {
   const response = axios.post('/signup', { creds });
-  console.log('CREDS IN ACTIONS -----:', creds)
   return {
     type: 'GET_ALL',
     payload: response,

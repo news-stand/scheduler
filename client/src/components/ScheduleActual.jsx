@@ -15,9 +15,8 @@ const ScheduleActual = (props) => {
   for (let i = 0; i < 14; i++) {
     morningEvenings.push(<div key={`${i}shift`} className="ratio-col-16 schedule-block  schedule-hours">{i % 2 === 0 ? 'AM' : 'PM'}</div>);
   }
-  console.log(props);
   // check to see if anyone is assigned a shift
-  if (props.selectedWeekActualSchedule.some((user => user.schedule.length > 0))) {
+  if (props.selectedWeekActualSchedule.length > 0) {
     // map over each employees schedule and return their row of shifts
     calendarBody = props.selectedWeekActualSchedule.map((sched, idx) => {
       return props.userRole === 'manager' ?

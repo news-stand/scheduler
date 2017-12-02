@@ -92,7 +92,6 @@ const generateSchedule = (mondayDate) => {
 };
 
 const addEmployee = (username, password, business) => {
-  console.log('----------------- we are in addEmployee');
   const response = axios.post('/add_employee', { username, password, business });
   return {
     type: 'ADD_EMPLOYEE',
@@ -182,12 +181,12 @@ const signUp = (creds) => {
 };
 
 const logout = () => {
-const response = axios.post('/logout');
+  const response = axios.post('/logout');
 
   return {
     type: 'REMOVE_LOGGED_IN_DETAILS',
     payload: response,
-  }
+  };
 };
 
 const checkedIfLoggedIn = () => {
@@ -196,13 +195,20 @@ const checkedIfLoggedIn = () => {
   return {
     type: 'GET_ALL',
     payload: response,
-  }
+  };
 };
 
 const selectWeek = (monDate) => {
   return {
     type: 'SELECT_WEEK',
     payload: monDate,
+  };
+};
+
+const setBusiness = (string) => {
+  return {
+    type: 'GET_BUSINESS_NAME',
+    payload: string,
   };
 };
 
@@ -226,4 +232,5 @@ module.exports = {
   login,
   signUp,
   selectWeek,
+  setBusiness,
 };

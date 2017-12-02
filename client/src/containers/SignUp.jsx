@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { signUp } from '../actions/index';
+import { signUp, setBusiness } from '../actions/index';
 
 
 const SignUp = props => (
@@ -28,6 +28,10 @@ const SignUp = props => (
               const username = document.getElementById('username').value;
               const password = document.getElementById('password').value;
               const business = document.getElementById('business').value || 'Hack Reactor';
+
+              // set application state business
+              props.setBusiness(business);
+
               props.signUp({ username, password, business });
               document.getElementById('business').value = '';
               document.getElementById('username').value = '';
@@ -41,7 +45,7 @@ const SignUp = props => (
 );
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signUp }, dispatch);
+  return bindActionCreators({ signUp, setBusiness }, dispatch);
 }
 
 SignUp.propTypes = {

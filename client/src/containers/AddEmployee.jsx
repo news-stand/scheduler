@@ -11,8 +11,6 @@ class AddEmployee extends React.Component {
     this.state = {
       newEmployeeName: '',
       newEmployeePassword: '',
-      // TODO: will need to delete the below because business id will come from state
-      //newEmployeeBusiness: 'Hack Reactor',
     };
   }
 
@@ -44,10 +42,8 @@ class AddEmployee extends React.Component {
           <button
             className="btn-main clickable"
             onClick={() => {
-              console.log('--------- appstate: ', this.props.businessName);
               this.props.addEmployee(
                 this.state.newEmployeeName, this.state.newEmployeePassword,
-              // will need to change the below to pull employee businessID from application state
                 this.props.businessName,
               );
               this.setState({

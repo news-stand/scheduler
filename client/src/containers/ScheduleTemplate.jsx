@@ -57,7 +57,7 @@ class ScheduleTemplate extends React.Component {
 
   handleSaveClick(mode) {
     if (mode === 'create') {
-      this.props.createScheduleTemplate(this.state.newDate, this.state.newSchedule)
+      this.props.createScheduleTemplate(this.state.newDate, this.state.newSchedule, this.props.businessId)
         .then(() => {
           this.setState({
             scheduleTempExist: true,
@@ -166,6 +166,7 @@ class ScheduleTemplate extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    businessId: state.businessId,
     selectedWeek: state.selectedWeek,
   };
 }

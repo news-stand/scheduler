@@ -139,15 +139,18 @@ const updateNeededEmployees = (schedule, newAvailabilities) => {
   };
 };
 
-const createScheduleTemplate = (monDate, scheduleTemplate) => {
+const createScheduleTemplate = (monDate, scheduleTemplate, busId) => {
   const requestBody = Object.keys(scheduleTemplate).map((dayPartId) => {
     return { 
-      monday_dates: monDate, day_part_id: dayPartId, 
-      employees_needed: scheduleTemplate[dayPartId] };
+      monday_dates: monDate,
+      day_part_id: dayPartId,
+      employees_needed: scheduleTemplate[dayPartId],
+      business_id: busId,
+    };
   });
 
   const response = axios.post('/needed_employees', {
-    scheduleTemplate: requestBody
+    scheduleTemplate: requestBody,
   });
 
   return {

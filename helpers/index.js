@@ -54,7 +54,7 @@ const getAllDayParts = (req, res, next) => {
 };
 
 const getAllActualSchedules = (req, res, next) => {
-  db.Actual_Schedule.findAll({})
+  db.Actual_Schedule.findAll({ })
     .then((schedules) => {
       req.actual_schedules = schedules;
       next();
@@ -152,11 +152,13 @@ const createScheduleDate = (req, res, next) => {
 
 const createScheduleTemplate = (req, res, next) => {
   let newTemplate = [];
+  console.log('THIS IS SCHEDULE REQ.BODY: ', req.body);
   return Promise.each(req.body.scheduleTemplate, (key) => {
     return db.Needed_Employee.create({
       employees_needed: key.employees_needed,
       schedule_id: req.scheduleTemplate.monday_date.dataValues.id,
       day_part_id: parseInt(key.day_part_id),
+      business_id: key.business_id,
     }).then((entry) => {
       newTemplate.push(entry);
     });

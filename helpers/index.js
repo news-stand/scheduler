@@ -192,6 +192,8 @@ const checkSession = (req, res, next) => {
             if (user.length) {
               obj.user = user[0].dataValues.name;
               obj.role = user[0].dataValues.role;
+              obj.businessId = user[0].dataValues.business_id;
+
             }
             req.session = obj;
             next();
@@ -208,10 +210,6 @@ const passHash = (password) => {
   shasum.update(password);
   return shasum.digest('hex');
 };
-
-const getAndSetBusinessId = (req, res, next) => {
-
-}
 
 const authenticate = (req, res, next) => {
   //get user info from user db;
@@ -230,6 +228,8 @@ const authenticate = (req, res, next) => {
         req.session = newSession(req, res);
         req.session.user = user.name;
         req.session.role = user.role;
+        // set businessName on req
+        req.bus = user.business_id;
         db.Sessions.create({ session: req.session.session, user_id: user.id })
           .then(() => {
             next();
@@ -306,12 +306,12 @@ const createUser = (req, res, next) => {
     role: 'manager',
     password: passHash(req.body.creds.password),
     // add business ID (will later need to change for req.body.creds.business)
-    
     business_id: req.businessId,
   }).then((data) => {
     req.session = newSession(req, res);
     req.session.user = req.body.creds.username;
-    req.session.role =data.dataValues.role;
+    req.session.role = data.dataValues.role;
+    req.session.businessId = req.businessId;
     db.Sessions.create({ session: req.session.session, user_id: data.dataValues.id })
       .then(() => {
         next();

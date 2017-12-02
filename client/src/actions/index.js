@@ -173,9 +173,10 @@ const login = (creds) => {
 
 const signUp = (creds) => {
   const response = axios.post('/signup', { creds });
+  console.log('this is the signup resonse -----------------: ', response);
   return {
     type: 'GET_ALL',
-    payload: response,
+    payload: response, // response.businessId is what we want to set to application state
   }
 };
 

@@ -29,8 +29,8 @@ const SignUp = props => (
               const password = document.getElementById('password').value;
               const business = document.getElementById('business').value || 'Hack Reactor';
 
-              // set application state business
-              props.setBusiness(business);
+              {/* // set application state business
+              props.setBusiness(business); */}
 
               props.signUp({ username, password, business });
               document.getElementById('business').value = '';

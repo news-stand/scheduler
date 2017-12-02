@@ -62,11 +62,12 @@ app.post('/generate_schedule', (req, res) => {
     });
 });
 
-app.post('/login', utils.authenticate, (req, res) => {
+app.post('/login', utils.authenticate, /* add middleware to add businessId to req, */ (req, res) => {
   res.redirect('/welcome_back');
 });
 
 app.post('/signup', utils.findOrCreateBusiness, utils.createUser, (req, res) => {
+  console.log('------------- REQ.BUSINESSID => ', req.businessId);
   res.redirect('/welcome_back');
 });
 
@@ -85,6 +86,8 @@ app.get('/welcome_back',
   utils.getAllNeededEmployees,
   (req, res) => {
     const obj = {};
+    // add businessId to object
+    obj.businessId = req.session.businessId;
     obj.role = req.session.role;
     obj.dayParts = req.dayParts;
     obj.view = 'employeeEditor';
@@ -93,6 +96,8 @@ app.get('/welcome_back',
     obj.neededEmployees = req.neededEmployees;
     obj.employeeAvailabilities = req.employeeAvailabilities;
     obj.scheduleDates = req.scheduleDates;
+    // console.log('--------------------------- inside /welcome_back, this is the obj: ', obj);
+    console.log('--------------------------- inside /welcome_back, this is the req.businessId: ', req.session.businessId);
     res.json(obj);
   },
 );

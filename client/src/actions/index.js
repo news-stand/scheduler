@@ -18,6 +18,9 @@ const deleteShift = (shift, userId, scheduleId) => {
 };
 
 const addShift = (shift, userId, scheduleId) => {
+  console.log('SHIFT ->', shift);
+  console.log('USER ID ->', userId);
+  console.log('SCHEDULE ID ->', scheduleId);
   const payload = {
     userId,
     shift,

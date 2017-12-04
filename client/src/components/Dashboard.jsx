@@ -192,7 +192,7 @@ function mapStateToProps(state) {
 
 
   const schedules = {};
-  const scheduleArr = [];
+  let scheduleArr = [];
 
   // check if there is an actual schedule set for the week
   if (actualSchedule) {
@@ -228,6 +228,18 @@ function mapStateToProps(state) {
       scheduleArr.push(schedObj);
     }
   }
+
+  state.users.forEach((user) => {
+    if (!scheduleArr.some(person => person.name === user.name)) {
+      scheduleArr.push({ name: user.name, userId: user.id.toString(), schedule: [] });
+    }
+  });
+
+  scheduleArr = scheduleArr.sort((a, b) => {
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;
+  });
 
   return {
     userRole: state.userRole,

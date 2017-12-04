@@ -9,7 +9,7 @@ const sequelize = process.env.DATABASE_URL ?
   new Sequelize(process.env.DB_NAME || 'shiftly', process.env.DB_USER || 'postgres', process.env.DB_PASS || null, { host: process.env.DB_HOST || 'localhost', dialect: 'postgres' });
 
 const db = config(sequelize);
-debugger;
+
 db.User.hasMany(db.Session, { as: 'session' });
 
 // One-to-Many Relationships
@@ -55,12 +55,12 @@ const dayParts = [
 ];
 
 let saveDayParts = (dayParts) => {
-	return Promise.each(dayParts, (dayPart) => {
-		db.Day_Part.create({ name: dayPart })
-			.catch((err) => {
-				console.log('day parts already in database');
-			});
-	})
+  return Promise.each(dayParts, (dayPart) => {
+    db.Day_Part.create({ name: dayPart })
+      .catch((err) => {
+        console.log('day parts already in database');
+      });
+  })
 };
 
 module.exports = {

@@ -58,11 +58,11 @@ class ScheduleTemplate extends React.Component {
   handleSaveClick(mode) {
     if (mode === 'create') {
       this.props.createScheduleTemplate(this.state.newDate, this.state.newSchedule)
-        .then(() => {
-          this.setState({
-            scheduleTempExist: true,
-          })
-        });
+      .then(() => {
+        this.setState({
+          scheduleTempExist: true,
+        })
+      });
     } else {
       this.props.updateNeededEmployees(this.props.schedule, this.state.newSchedule);
     }

@@ -1,13 +1,27 @@
 # Shiftly
 > Automated shift scheduling for small businesses.
 
-## Team
+## Contributors
 
+2.0 Team:
+  - Ayush Kumar
+  - Danny Welstad
+  - Katherine Manning
+  - Patrick Miner
+
+Original Team:
   - Toby Hoshman
   - Vanessa Yip
   - Sofie Graham
   - Caleb Choi
 
+## Final Product
+
+Manager Dashboard:
+![screenshot](./images/shiftly_manager_dashboard.png)
+
+Manager Dashboard:
+![screenshot](./images/shiftly_employee_dashboard.png)
 
 ## Table of Contents
 
